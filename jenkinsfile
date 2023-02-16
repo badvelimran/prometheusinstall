@@ -33,7 +33,7 @@ pipeline {
             steps {
                sh '''
                    sudo docker build -t grafana_image /home/ubuntu/grafana-server/.
-                   sudo docker run -d -p 3000:3000 --name grafana_container grafana_image
+                   sudo docker run -itd -p 3000:3000 --name grafana_container grafana_image
                   '''
             }
         }
