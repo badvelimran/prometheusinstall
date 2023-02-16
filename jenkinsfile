@@ -1,0 +1,50 @@
+pipeline {
+    agent any
+    stages {
+        
+        stage("checking version") {
+            steps {
+               sh '''
+                   sudo docker --version
+                   pwd
+                  '''
+            }
+        }
+        
+        stage("Run prometheus container ") {
+            steps {
+               sh '''
+                   sudo docker build -t prom_image /home/ubuntu/prometheus-2.42.0.linux-amd64/.
+                   sudo docker run -d -p 9090:9090 --name prom_container prom_image
+                  '''
+            }
+        }
+        
+        stage("Run node_exporter container ") {
+            steps {
+               sh '''
+                   sudo docker build -t node_expo_image /home/ubuntu/node_exporter-1.5.0.linux-amd64/.
+                   sudo docker run -d -p 9100:9100 --name node_container node_expo_image
+                  '''
+            }
+        }
+
+        stage("Run Grafana container ") {
+            steps {
+               sh '''
+                   sudo docker build -t grafana_image /home/ubuntu/grafana-server/.
+                   sudo docker run -d -p 3000:3000 --name grafana_container grafana_image /bin/bash
+                  '''
+            }
+        }
+        
+        stage("Run alertmanager container ") {
+            steps {
+               sh '''
+                   sudo docker build -t alert_image /home/ubuntu/alertmanager-0.25.0.linux-amd64/.
+                   sudo docker run -d -p 9103:9103 --name alert_container alert_image
+                   '''
+            }
+        }
+    } 
+}
