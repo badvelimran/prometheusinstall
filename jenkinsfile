@@ -57,5 +57,17 @@ pipeline {
                    '''
             }
         }
+        
+        stage("Checking container status ") {
+            steps {
+               sh '''
+                   sudo docker ps
+                   curl localhost:9090
+                   curl localhost:9100
+                   curl localhost:9093
+                   curl localhost:3000
+                   '''
+             }
+         }
     } 
 }
