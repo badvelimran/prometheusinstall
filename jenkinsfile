@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage("GIT CHECKOUT") {
             steps {
-                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Prasathh/docker_repo.git']])
+                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/badvelimran/pronetheusinstall.git']])
             }
         }
         
